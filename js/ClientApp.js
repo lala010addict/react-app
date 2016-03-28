@@ -10,13 +10,16 @@ var myTitle = React.createClass({
     }
 })
 
+var myTitleFactory = React.createFactory(myTitle)
+var ce = React.createElement
 
 var myFirstComponent = (
     div(null,
-       React.createElement(myTitle, null),
-       React.createElement(myTitle, null),
-       React.createElement(myTitle, null),
-       React.createElement(myTitle, null)
+    	//all the same
+        React.createElement(myTitle, null),
+        myTitleFactory(null),
+        ce(myTitle, null),
+        myTitleFactory(null)
     )
 )
 
