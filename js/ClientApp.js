@@ -4,7 +4,7 @@ var myTitle = React.createClass({
     render: function() {
         return (
             div(null,
-                h1(null, 'check out this!')
+                h1(null, this.props.title)
             )
         )
     }
@@ -16,10 +16,9 @@ var ce = React.createElement
 var myFirstComponent = (
     div(null,
     	//all the same
-        React.createElement(myTitle, null),
-        myTitleFactory(null),
-        ce(myTitle, null),
-        myTitleFactory(null)
+        React.createElement(myTitle, {title: 'propssss'}),
+        myTitleFactory({title: 'propssdfdfd'}),
+        ce(myTitle, {title: 'proppppssssssppppssss'})
     )
 )
 
