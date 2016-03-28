@@ -4,7 +4,7 @@ var myTitle = React.createClass({
     render: function() {
         return (
             div(null,
-                h1(null, this.props.title)
+                h1({ style: { color: this.props.color } }, this.props.title)
             )
         )
     }
@@ -15,10 +15,10 @@ var ce = React.createElement
 
 var myFirstComponent = (
     div(null,
-    	//all the same
-        React.createElement(myTitle, {title: 'propssss'}),
-        myTitleFactory({title: 'propssdfdfd'}),
-        ce(myTitle, {title: 'proppppssssssppppssss'})
+        //all the same
+        React.createElement(myTitle, { title: 'propssss', color: 'purple' }),
+        myTitleFactory({ title: 'propssdfdfd', color: 'mediumaquamarine' }),
+        ce(myTitle, { title: 'proppppssssssppppssss', color: 'peru' })
     )
 )
 
