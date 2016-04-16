@@ -48,17 +48,22 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
+	var MyTitle = __webpack_require__(159);
 
-	var div = React.DOM.div;
-	var myTitle = __webpack_require__(159);
-	var myTitleFactory = React.createFactory(myTitle);
+	var MyTitleFactory = React.createFactory(MyTitle);
 	var ce = React.createElement;
 
-	var myFirstComponent = div(null,
-	//all the same
-	React.createElement(myTitle, { title: 'propssss', color: 'purple' }), myTitleFactory({ title: 'propssdfdfd', color: 'mediumaquamarine' }), ce(myTitle, { title: 'proppppssssssppppssss', color: 'peru' }));
+	var MyFirstComponent = function MyFirstComponent() {
+	      return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(MyTitle, { title: 'Whatevs', color: 'rebeccapurple' }),
+	            React.createElement(MyTitle, { title: 'LOL', color: 'papayawhip' }),
+	            React.createElement(MyTitle, { title: 'OMAHDJSHDJASD', color: '#f06d06' })
+	      );
+	};
 
-	ReactDOM.render(myFirstComponent, document.getElementById('app'));
+	ReactDOM.render(React.createElement(MyFirstComponent, null), document.getElementById('app'));
 	//http-server -p 8080 ./
 
 /***/ },
@@ -19724,15 +19729,24 @@
 	var React = __webpack_require__(1);
 	var div = React.DOM.div;
 	var h1 = React.DOM.h1;
-	var myTitle = React.createClass({
-	    displayName: 'myTitle',
+
+	var MyTitle = React.createClass({
+	    displayName: 'MyTitle',
 
 	    render: function render() {
-	        return div(null, h1({ style: { color: this.props.color } }, this.props.title));
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'h1',
+	                { style: { color: this.props.color } },
+	                this.props.title
+	            )
+	        );
 	    }
 	});
 
-	module.exports = myTitle;
+	module.exports = MyTitle;
 
 /***/ }
 /******/ ]);
