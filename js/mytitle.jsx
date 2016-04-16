@@ -1,13 +1,13 @@
-var React = require('react')
-var div = React.DOM.div
-var h1 = React.DOM.h1
+const React = require('react')
+const div = React.DOM.div
+const h1 = React.DOM.h1
 
 
-var myTitle = React.createClass({
+const MyTitle = React.createClass({
     render: function() {
         return (
            <div>
-                <h1 style= { color: this.props.color }>
+        <h1 style= { {color: this.props.color} }>
                  {this.props.title}
                 </h1>
            </div>
@@ -15,4 +15,4 @@ var myTitle = React.createClass({
     }
 })
 
-module.exports = myTitle
+module.exports = MyTitle
