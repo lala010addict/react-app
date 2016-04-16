@@ -2,6 +2,9 @@
   "name": "react-app",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+"test": "standard"
+  },
   "license": "MIT",
   "dependencies": {
     "axios": "0.9.1",
