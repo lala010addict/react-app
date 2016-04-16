@@ -19717,14 +19717,15 @@
 
 /***/ },
 /* 159 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
+	var React = __webpack_require__(1);
 	var div = React.DOM.div;
 	var h1 = React.DOM.h1;
 	var myTitle = React.createClass({
-	    displayName: "myTitle",
+	    displayName: 'myTitle',
 
 	    render: function render() {
 	        return div(null, h1({ style: { color: this.props.color } }, this.props.title));
