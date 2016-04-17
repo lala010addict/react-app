@@ -1,20 +1,23 @@
-var React = require('react')
-var ReactDOM = require('react-dom')
-var MyTitle = require('./mytitle')
+const React = require('react')
+const ReactDOM = require('react-dom')
+// const MyTitle = require('./mytitle')
 
 
-var MyTitleFactory = React.createFactory(MyTitle)
-var ce = React.createElement
+// const MyTitleFactory = React.createFactory(MyTitle)
+// const ce = React.createElement
 
-var MyFirstComponent = function (){
+const App = function (){
    return (
-   <div>
-         <MyTitle title = 'Whatevs' color = 'rebeccapurple' />
-       <MyTitle title="LOL" color ="papayawhip" />
-        <MyTitle title="OMAHDJSHDJASD" color ="#f06d06" />
+   <div className = 'app-container'>
+     <div className = 'home-info'>
+        <h1 className = "title">svideo</h1>
+        <input className = 'search' type='text' placeholder= 'search' />
+        <button className = 'browse-all'> or Browse All </button>
+     </div>
+
   </div>
   )
 }
 
-ReactDOM.render(<MyFirstComponent />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
     //http-server -p 8080 ./
