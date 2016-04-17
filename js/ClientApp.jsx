@@ -14,8 +14,8 @@ const App = function (){
         <input className = 'search' type='text' placeholder= 'search' />
         <button className = 'browse-all'> or Browse All </button>
      </div>
-
   </div>
+
   )
 }
 

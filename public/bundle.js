@@ -48,22 +48,34 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var MyTitle = __webpack_require__(159);
+	// const MyTitle = require('./mytitle')
 
-	var MyTitleFactory = React.createFactory(MyTitle);
-	var ce = React.createElement;
+	// const MyTitleFactory = React.createFactory(MyTitle)
+	// const ce = React.createElement
 
-	var MyFirstComponent = function MyFirstComponent() {
-	      return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(MyTitle, { title: 'Whatevs', color: 'rebeccapurple' }),
-	            React.createElement(MyTitle, { title: 'LOL', color: 'papayawhip' }),
-	            React.createElement(MyTitle, { title: 'OMAHDJSHDJASD', color: '#f06d06' })
-	      );
+	var App = function App() {
+	   return React.createElement(
+	      'div',
+	      { className: 'app-container' },
+	      React.createElement(
+	         'div',
+	         { className: 'home-info' },
+	         React.createElement(
+	            'h1',
+	            { className: 'title' },
+	            'svideo'
+	         ),
+	         React.createElement('input', { className: 'search', type: 'text', placeholder: 'search' }),
+	         React.createElement(
+	            'button',
+	            { className: 'browse-all' },
+	            ' or Browse All '
+	         )
+	      )
+	   );
 	};
 
-	ReactDOM.render(React.createElement(MyFirstComponent, null), document.getElementById('app'));
+	ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 	//http-server -p 8080 ./
 
 /***/ },
@@ -19719,34 +19731,6 @@
 	'use strict';
 
 	module.exports = __webpack_require__(3);
-
-/***/ },
-/* 159 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var div = React.DOM.div;
-	var h1 = React.DOM.h1;
-
-	var MyTitle = React.createClass({
-	    displayName: 'MyTitle',
-
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	                'h1',
-	                { style: { color: this.props.color } },
-	                this.props.title
-	            )
-	        );
-	    }
-	});
-
-	module.exports = MyTitle;
 
 /***/ }
 /******/ ]);

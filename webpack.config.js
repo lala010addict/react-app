@@ -8,19 +8,22 @@ module.exports = {
         filename: 'bundle.js'
     },
     resolve: {
-    	extensions: ['', '.js', '.jsx', '.json']
+        extensions: ['', '.js', '.jsx', '.json']
     },
     stats: {
-    	colors: true,
-    	reasons: true,
-    	chunks: false
+        colors: true,
+        reasons: true,
+        chunks: false
     },
     module: {
-    	loaders: [
-    	{
-    		test: /\.jsx?$/, 
-    		loader: 'babel-loader'
-    	}
-    	]
+        // preLoaders: [{
+        //     test: /\.jsx?$/,
+        //     loader: "eslint-loader",
+        //     exclude: /node_modules/
+        // }],
+        loaders: [{
+            test: /\.jsx?$/,
+            loader: 'babel-loader'
+        }]
     }
 }
