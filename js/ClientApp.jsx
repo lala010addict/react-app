@@ -2,8 +2,9 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const Landing = require('./Landing')
 const Search = require('./Search')
+const Layout = require('./Layout')
 //distructuring
-const {Router, Route, hashHistory} = require('react-router')
+const {Router, Route, IndexRoute, hashHistory} = require('react-router')
 
 //const {Router, Route, hashHistory} = ReactRouter
 
@@ -14,8 +15,10 @@ const {Router, Route, hashHistory} = require('react-router')
 const App = function (){
    return (
     <Router history = {hashHistory} >
-        <Route path = '/' component={Landing} />
-        <Route path = '/search' component={Search} />
+    	<Route path='/' component = {Layout}>
+      	  <IndexRoute component={Landing} />
+          <Route path = '/search' component={Search} />
+         </Route>
     </Router>
 
   )

@@ -50,12 +50,14 @@
 	var ReactDOM = __webpack_require__(158);
 	var Landing = __webpack_require__(159);
 	var Search = __webpack_require__(217);
+	var Layout = __webpack_require__(220);
 	//distructuring
 
 	var _require = __webpack_require__(160);
 
 	var Router = _require.Router;
 	var Route = _require.Route;
+	var IndexRoute = _require.IndexRoute;
 	var hashHistory = _require.hashHistory;
 
 	//const {Router, Route, hashHistory} = ReactRouter
@@ -65,12 +67,16 @@
 	// const hashHistory = ReactRouter.hashHistory
 
 	var App = function App() {
-	    return React.createElement(
-	        Router,
-	        { history: hashHistory },
-	        React.createElement(Route, { path: '/', component: Landing }),
-	        React.createElement(Route, { path: '/search', component: Search })
-	    );
+	  return React.createElement(
+	    Router,
+	    { history: hashHistory },
+	    React.createElement(
+	      Route,
+	      { path: '/', component: Layout },
+	      React.createElement(IndexRoute, { component: Landing }),
+	      React.createElement(Route, { path: '/search', component: Search })
+	    )
+	  );
 	};
 
 	ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
@@ -19746,21 +19752,17 @@
 	var Landing = function Landing() {
 	   return React.createElement(
 	      'div',
-	      { className: 'app-container' },
+	      { className: 'home-info' },
 	      React.createElement(
-	         'div',
-	         { className: 'home-info' },
-	         React.createElement(
-	            'h1',
-	            { className: 'title' },
-	            'svideo'
-	         ),
-	         React.createElement('input', { className: 'search', type: 'text', placeholder: 'search' }),
-	         React.createElement(
-	            Link,
-	            { to: '/search', className: 'browse-all' },
-	            ' or Browse All '
-	         )
+	         'h1',
+	         { className: 'title' },
+	         'svideo'
+	      ),
+	      React.createElement('input', { className: 'search', type: 'text', placeholder: 'search' }),
+	      React.createElement(
+	         Link,
+	         { to: '/search', className: 'browse-all' },
+	         ' or Browse All '
 	      )
 	   );
 	};
@@ -25075,19 +25077,32 @@
 	var ShowCard = __webpack_require__(218);
 	var data = __webpack_require__(219);
 
-	var Search = function Search() {
-	  return React.createElement(
-	    'div',
-	    { className: 'container' },
-	    React.createElement(
-	      'div',
-	      { className: 'shows' },
-	      data.shows.map(function (show) {
-	        return React.createElement(ShowCard, _extends({}, show, { key: show.imdbID }));
-	      })
-	    )
-	  );
-	};
+	var Search = React.createClass({
+		displayName: 'Search',
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ className: 'container' },
+				React.createElement(
+					'header',
+					{ className: 'header' },
+					React.createElement(
+						'h1',
+						{ className: 'brand' },
+						'svideo'
+					),
+					React.createElement('input', { className: 'search-input', type: 'text', placeholder: 'Search' })
+				),
+				React.createElement(
+					'div',
+					{ className: 'shows' },
+					data.shows.map(function (show) {
+						return React.createElement(ShowCard, _extends({}, show, { key: show.imdbID }));
+					})
+				)
+			);
+		}
+	});
 
 	module.exports = Search;
 
@@ -25315,6 +25330,29 @@
 			}
 		]
 	};
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Layout = function Layout(props) {
+		return React.createElement(
+			'div',
+			{ className: 'app-container' },
+			props.children
+		);
+	};
+
+	var element = React.PropTypes.element;
+
+
+	Layout.propTypes = {
+		children: element.isRequired
+	};
+	module.exports = Layout;
 
 /***/ }
 /******/ ]);
