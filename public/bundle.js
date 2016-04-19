@@ -50,7 +50,7 @@
 	var ReactDOM = __webpack_require__(158);
 	var Landing = __webpack_require__(159);
 	var Search = __webpack_require__(217);
-	var Layout = __webpack_require__(218);
+	var Layout = __webpack_require__(220);
 	//distructuring
 
 	var _require = __webpack_require__(160);
@@ -25074,8 +25074,8 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(1);
-	var ShowCard = __webpack_require__(219);
-	var data = __webpack_require__(220);
+	var ShowCard = __webpack_require__(218);
+	var data = __webpack_require__(219);
 
 	var Search = React.createClass({
 		displayName: 'Search',
@@ -25106,8 +25106,12 @@
 				React.createElement(
 					'div',
 					{ className: 'shows' },
-					data.shows.filter(function (show) {
-						return (show.title + ' ' + show.description).toUpperCase().indexOf(_this.state.searchTerm.toUpperCase()) >= 0;
+					data.shows
+					//searching in both title and description
+					.filter(function (show) {
+						return (show.title + ' ' + show.description).toUpperCase()
+						//if true will keep in the array, if not, then drop from the array
+						.indexOf(_this.state.searchTerm.toUpperCase()) >= 0;
 					}).map(function (show) {
 						return React.createElement(ShowCard, _extends({}, show, { key: show.imdbID }));
 					})
@@ -25120,29 +25124,6 @@
 
 /***/ },
 /* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var Layout = function Layout(props) {
-		return React.createElement(
-			'div',
-			{ className: 'app-container' },
-			props.children
-		);
-	};
-
-	var element = React.PropTypes.element;
-
-
-	Layout.propTypes = {
-		children: element.isRequired
-	};
-	module.exports = Layout;
-
-/***/ },
-/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25190,7 +25171,7 @@
 	module.exports = ShowCard;
 
 /***/ },
-/* 220 */
+/* 219 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -25365,6 +25346,29 @@
 			}
 		]
 	};
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Layout = function Layout(props) {
+		return React.createElement(
+			'div',
+			{ className: 'app-container' },
+			props.children
+		);
+	};
+
+	var element = React.PropTypes.element;
+
+
+	Layout.propTypes = {
+		children: element.isRequired
+	};
+	module.exports = Layout;
 
 /***/ }
 /******/ ]);
