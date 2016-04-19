@@ -1,4 +1,15 @@
-/* eslint-env mocha */
+/* eslint-env mocha 
+
+
+to check how much % coverage your tests cover your codebase
+nyc --reporter=lcov --reporter=text --reporter=html --require babel-register --extension .jsx npm test
+
+cd into coverage/
+
+open index.html
+to see which lines are not being tested
+
+*/
 
 const { expect } = require('chai')
 const React = require('react')
@@ -37,11 +48,9 @@ describe('<Search />', () => {
 
      })
 
+
+
  })
-
-
-
-
 
 
 
