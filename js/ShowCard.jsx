@@ -1,6 +1,7 @@
 const React = require('react')
+const { Link } = require('react-router')
 const ShowCard = (props) => (
-
+<Link to={`/details/${props.imdbID}`}>
 <div className = 'show-card'>
 				<img src = {`public/img/posters/${props.poster}`} className ='show-card-img' />
 				<div className = 'show-card-text'>
@@ -10,7 +11,7 @@ const ShowCard = (props) => (
 
 </div>
 </div>
-
+</Link>
 
 	)
 
@@ -22,7 +23,8 @@ ShowCard.propTypes = {
 	title: string.isRequired,
 	description: string.isRequired,
 	year: string.isRequired,
-	poster:string.isRequired
+	poster:string.isRequired,
+	imdbID: string.isRequired
 }
 
 

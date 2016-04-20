@@ -49,9 +49,9 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var Landing = __webpack_require__(159);
-	var Search = __webpack_require__(217);
-	var Layout = __webpack_require__(220);
-	var Details = __webpack_require__(221);
+	var Search = __webpack_require__(240);
+	var Layout = __webpack_require__(243);
+	var Details = __webpack_require__(244);
 	//distructuring
 
 	var _require = __webpack_require__(160);
@@ -61,15 +61,15 @@
 	var IndexRoute = _require.IndexRoute;
 	var hashHistory = _require.hashHistory;
 
-	var _require2 = __webpack_require__(222);
+	var _require2 = __webpack_require__(245);
 
 	var shows = _require2.shows;
 
-	var _require3 = __webpack_require__(223);
+	var _require3 = __webpack_require__(217);
 
 	var store = _require3.store;
 
-	var _require4 = __webpack_require__(235);
+	var _require4 = __webpack_require__(229);
 
 	var Provider = _require4.Provider;
 	//const {Router, Route, hashHistory} = ReactRouter
@@ -19780,32 +19780,92 @@
 
 	'use strict';
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	var React = __webpack_require__(1);
 
 	var _require = __webpack_require__(160);
 
-	var Link = _require.Link;
+	var hashHistory = _require.hashHistory;
+
+	var _require2 = __webpack_require__(160);
+
+	var Link = _require2.Link;
+
+	var _require3 = __webpack_require__(217);
+
+	var connector = _require3.connector;
+
+	var Landing = function (_React$Component) {
+		_inherits(Landing, _React$Component);
+
+		function Landing(props) {
+			_classCallCheck(this, Landing);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Landing).call(this, props));
+
+			_this.handleSearchTermEvent = _this.handleSearchTermEvent.bind(_this);
+			_this.gotoSearch = _this.gotoSearch.bind(_this);
+			return _this;
+		}
+
+		_createClass(Landing, [{
+			key: 'handleSearchTermEvent',
+			value: function handleSearchTermEvent(event) {
+				this.props.setSearchTerm(event.target.value);
+			}
+		}, {
+			key: 'gotoSearch',
+			value: function gotoSearch(event) {
+				hashHistory.push('search');
+				event.preventDefault();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return React.createElement(
+					'div',
+					{ className: 'home-info' },
+					React.createElement(
+						'h1',
+						{ className: 'title' },
+						'svideo'
+					),
+					React.createElement(
+						'form',
+						{ onSubmit: this.gotoSearch },
+						React.createElement('input', { value: this.props.searchTerm, onChange: this.handleSearchTermEvent,
+							className: 'search', type: 'text', placeholder: 'search' })
+					),
+					React.createElement(
+						Link,
+						{ to: '/search', className: 'browse-all' },
+						' or Browse All '
+					)
+				);
+			}
+		}]);
+
+		return Landing;
+	}(React.Component);
+
+	var _React$PropTypes = React.PropTypes;
+	var func = _React$PropTypes.func;
+	var string = _React$PropTypes.string;
 
 
-	var Landing = function Landing() {
-	   return React.createElement(
-	      'div',
-	      { className: 'home-info' },
-	      React.createElement(
-	         'h1',
-	         { className: 'title' },
-	         'svideo'
-	      ),
-	      React.createElement('input', { className: 'search', type: 'text', placeholder: 'search' }),
-	      React.createElement(
-	         Link,
-	         { to: '/search', className: 'browse-all' },
-	         ' or Browse All '
-	      )
-	   );
+	Landing.propTypes = {
+		searchTerm: string,
+		setSearchTerm: func
 	};
 
-	module.exports = Landing;
+	module.exports = connector(Landing);
 
 /***/ },
 /* 160 */
@@ -25109,473 +25169,8 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var React = __webpack_require__(1);
-	var ShowCard = __webpack_require__(218);
-	// const data = require('../public/data')
-	var _React$PropTypes = React.PropTypes;
-	var object = _React$PropTypes.object;
-	var string = _React$PropTypes.string;
-
-	var Header = __webpack_require__(219);
-
-	var _require = __webpack_require__(223);
-
-	var connector = _require.connector;
-
-
-	var Search = React.createClass({
-		displayName: 'Search',
-
-		// getInitialState() {
-		// 	return {
-		// 		searchTerm: ''
-		// 	}
-		// },
-		propTypes: {
-			route: object,
-			searchTerm: string
-		},
-		// handleSearchTermChange (searchTerm) {
-		//   this.setState({ searchTerm: searchTerm })
-		//   // same to this.setState({ searchTerm})
-		// },
-		render: function render() {
-			var _this = this;
-
-			return React.createElement(
-				'div',
-				{ className: 'container' },
-				React.createElement(Header
-				// handleSearchTermChange = {this.handleSearchTermChange}
-				// 	searchTerm={this.state.searchTerm}
-				, { showSearch: true }),
-				React.createElement(
-					'div',
-					{ className: 'shows' },
-					this.props.route.shows
-					//searching in both title and description
-					.filter(function (show) {
-						return (show.title + ' ' + show.description).toUpperCase()
-						//if true will keep in the array, if not, then drop from the array
-						.indexOf(_this.props.searchTerm.toUpperCase()) >= 0;
-					}).map(function (show) {
-						return React.createElement(ShowCard, _extends({}, show, { key: show.imdbID }));
-					})
-				)
-			);
-		}
-	});
-
-	module.exports = connector(Search);
-
-/***/ },
-/* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var ShowCard = function ShowCard(props) {
-		return React.createElement(
-			'div',
-			{ className: 'show-card' },
-			React.createElement('img', { src: 'public/img/posters/' + props.poster, className: 'show-card-img' }),
-			React.createElement(
-				'div',
-				{ className: 'show-card-text' },
-				React.createElement(
-					'h3',
-					{ className: 'show-card-title' },
-					props.title
-				),
-				React.createElement(
-					'h4',
-					{ className: 'show-card-year' },
-					'(',
-					props.year,
-					')'
-				),
-				React.createElement(
-					'p',
-					{ className: 'show-card-description' },
-					props.description
-				)
-			)
-		);
-	};
-
-	var string = React.PropTypes.string;
-	// = const string = React.PropTypes.string
-
-	ShowCard.propTypes = {
-		title: string.isRequired,
-		description: string.isRequired,
-		year: string.isRequired,
-		poster: string.isRequired
-	};
-
-	module.exports = ShowCard;
-
-/***/ },
-/* 219 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var _require = __webpack_require__(160);
-
-	var Link = _require.Link;
-	var _React$PropTypes = React.PropTypes;
-	var func = _React$PropTypes.func;
-	var bool = _React$PropTypes.bool;
-	var string = _React$PropTypes.string;
-
-	var _require2 = __webpack_require__(223);
-
-	var connector = _require2.connector;
-
-
-	var Header = React.createClass({
-	  displayName: 'Header',
-
-	  propTypes: {
-	    setSearchTerm: func,
-	    showSearch: bool,
-	    searchTerm: string
-	  },
-	  handleSearchTermEvent: function handleSearchTermEvent(event) {
-	    this.props.setSearchTerm(event.target.value);
-	  },
-	  render: function render() {
-	    var utilSpace = void 0;
-	    if (this.props.showSearch) {
-	      utilSpace = React.createElement('input', { type: 'text', className: 'search-input', placeholder: 'search', value: this.props.searchTerm, onChange: this.handleSearchTermEvent });
-	    } else {
-	      utilSpace = React.createElement(
-	        'h2',
-	        { className: 'header-back' },
-	        React.createElement(
-	          Link,
-	          { to: '/search' },
-	          'Back'
-	        )
-	      );
-	    }
-	    return React.createElement(
-	      'header',
-	      { className: 'header' },
-	      React.createElement(
-	        'h1',
-	        { className: 'brand' },
-	        React.createElement(
-	          Link,
-	          { to: '/', className: 'brand-link' },
-	          'svideo'
-	        )
-	      ),
-	      utilSpace
-	    );
-	  }
-	});
-
-	module.exports = connector(Header);
-
-/***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var Layout = function Layout(props) {
-		return React.createElement(
-			'div',
-			{ className: 'app-container' },
-			props.children
-		);
-	};
-
-	var element = React.PropTypes.element;
-
-
-	Layout.propTypes = {
-		children: element.isRequired
-	};
-	module.exports = Layout;
-
-/***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var React = __webpack_require__(1);
-	var Header = __webpack_require__(219);
-
-	var Details = function (_React$Component) {
-		_inherits(Details, _React$Component);
-
-		function Details() {
-			_classCallCheck(this, Details);
-
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Details).apply(this, arguments));
-		}
-
-		_createClass(Details, [{
-			key: 'render',
-			value: function render() {
-				var params = this.props.params || {};
-				var title = params.title;
-				var description = params.description;
-				var year = params.year;
-				var poster = params.poster;
-				var trailer = params.trailer;
-
-				return React.createElement(
-					'div',
-					{ className: 'container' },
-					React.createElement(Header, null),
-					React.createElement(
-						'div',
-						{ className: 'video-info' },
-						React.createElement(
-							'h1',
-							{ className: 'video-title' },
-							title
-						),
-						React.createElement(
-							'h2',
-							{ className: 'video-year' },
-							' (',
-							year,
-							')'
-						),
-						React.createElement('img', { className: 'video-poster', src: 'public/img/posters/' + poster }),
-						React.createElement(
-							'p',
-							{ className: 'video-description' },
-							description
-						)
-					),
-					React.createElement(
-						'div',
-						{ className: 'video-container' },
-						React.createElement('iframe', { src: 'https://www.youtube-nocookie.com/embed/' + trailer + '?rel=0&amp;controls=0&amp;showinfo=0', frameBorder: '0', allowFullScreen: true })
-					)
-				);
-			}
-		}]);
-
-		return Details;
-	}(React.Component);
-
-	var object = React.PropTypes.object;
-
-
-	Details.propTypes = {
-		params: object.isRequired
-
-	};
-
-	module.exports = Details;
-
-/***/ },
-/* 222 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"shows": [
-			{
-				"title": "House of Cards",
-				"year": "2013–",
-				"description": "A Congressman works with his equally conniving wife to exact revenge on the people who betrayed him.",
-				"poster": "hoc.jpg",
-				"imdbID": "tt1856010",
-				"trailer": "NTzycsqxYJ0"
-			},
-			{
-				"title": "Daredevil",
-				"year": "2015–",
-				"description": "A blind lawyer with his other senses superhumanly enhanced fights crime as a costumed superhero.",
-				"poster": "dd.jpg",
-				"imdbID": "tt3322312",
-				"trailer": "m5_A0Wx0jU4"
-			},
-			{
-				"title": "Orange Is the New Black",
-				"year": "2013–",
-				"description": "The story of Piper Chapman, a woman in her thirties who is sentenced to fifteen months in prison after being convicted of a decade-old crime of transporting money for her drug-dealing girlfriend.",
-				"poster": "oitnb.jpg",
-				"imdbID": "tt2372162",
-				"trailer": "th8WT_pxGqg"
-			},
-			{
-				"title": "Arrested Development",
-				"year": "2003–",
-				"description": "Level-headed son Michael Bluth takes over family affairs after his father is imprisoned. But the rest of his spoiled, dysfunctional family are making his job unbearable.",
-				"poster": "ad.jpg",
-				"imdbID": "tt0367279",
-				"trailer": "vzVhPCMAxWQ"
-			},
-			{
-				"title": "Unbreakable Kimmy Schmidt",
-				"year": "2015–",
-				"description": "A woman is rescued from a doomsday cult and starts life over again in New York City.",
-				"poster": "uks.jpg",
-				"imdbID": "tt3339966",
-				"trailer": "ZBJHP2B4bjc"
-			},
-			{
-				"title": "Marco Polo",
-				"year": "2014–",
-				"description": "In a world replete with greed, betrayal, sexual intrigue and rivalry, \"Marco Polo\" is based on the famed explorer's adventures in Kublai Khan's court in 13th century China.",
-				"poster": "mp.jpg",
-				"imdbID": "tt2189461",
-				"trailer": "CeUhXYmGKU4"
-			},
-			{
-				"title": "Bloodline",
-				"year": "2015–",
-				"description": "A family of adult siblings find that their secrets and scars are revealed when their black sheep of a brother returns home.",
-				"poster": "bl.jpg",
-				"imdbID": "tt3520702",
-				"trailer": "tRnS8FkcXNk"
-			},
-			{
-				"title": "BoJack Horseman",
-				"year": "2014–",
-				"description": "Meet the most beloved sitcom horse of the '90s - 20 years later. BoJack Horseman was the star of the hit TV show \"Horsin' Around,\" but today he's washed up, living in Hollywood, complaining about everything, and wearing colorful sweaters.",
-				"poster": "bh.jpg",
-				"imdbID": "tt3398228",
-				"trailer": "5sGsBoX6vUo"
-			},
-			{
-				"title": "Hemlock Grove",
-				"year": "2013–",
-				"description": "A teenage girl is brutally murdered, sparking a hunt for her killer. But in a town where everyone hides a secret, will they find the monster among them?",
-				"poster": "hg.jpg",
-				"imdbID": "tt2309295",
-				"trailer": "rlZUsPcChgI"
-			},
-			{
-				"title": "The Killing",
-				"year": "2011–",
-				"description": "A police investigation, the saga of a grieving family, and a Seattle mayoral campaign all interlock after the body of 17-year-old Rosie Larsen is found in the trunk of a submerged car.",
-				"poster": "tk.jpg",
-				"imdbID": "tt1637727",
-				"trailer": "OkbfvPeH3G0"
-			},
-			{
-				"title": "Love",
-				"year": "2016–",
-				"description": "A program that follows a couple who must navigate the exhilarations and humiliations of intimacy, commitment and other things they were hoping to avoid.",
-				"poster": "l.jpg",
-				"imdbID": "tt4061080",
-				"trailer": "Ym3LoSj9Xj8"
-			},
-			{
-				"title": "Master of None",
-				"year": "2015–",
-				"description": "The personal and professional life of Dev, a 30-year-old actor in New York.",
-				"poster": "mon.jpg",
-				"imdbID": "tt4635276",
-				"trailer": "6bFvb3WKISk"
-			},
-			{
-				"title": "Flaked",
-				"year": "2016–",
-				"description": "Will Arnett will star as a self-help guru who needs a decent amount of help himself.",
-				"poster": "f.jpg",
-				"imdbID": "tt4973548",
-				"trailer": "iKOpvm7BcOo"
-			},
-			{
-				"title": "Jessica Jones",
-				"year": "2015–",
-				"description": "A former superhero decides to reboot her life by becoming a private investigator.",
-				"poster": "jj.jpg",
-				"imdbID": "tt2357547",
-				"trailer": "nWHUjuJ8zxE"
-			},
-			{
-				"title": "Narcos",
-				"year": "2015–",
-				"description": "A chronicled look at the criminal exploits of Colombian drug lord Pablo Escobar.",
-				"poster": "n.jpg",
-				"imdbID": "tt2707408",
-				"trailer": "U7elNhHwgBU"
-			},
-			{
-				"title": "Wet Hot American Summer: First Day of Camp",
-				"year": "2015–",
-				"description": "Follow the counselors and campers on their first day at Camp Firewood in the summer of 1981.",
-				"poster": "whas.jpg",
-				"imdbID": "tt4341500",
-				"trailer": "PLlMTn_Jzok"
-			},
-			{
-				"title": "Club de Cuervos",
-				"year": "2015–",
-				"description": "When the patriarch of a prominent family dies, his heirs battle to determine who will gain control of his beloved soccer team: The Cuervos of Nuevo Toledo.",
-				"poster": "cdc.jpg",
-				"imdbID": "tt4680240",
-				"trailer": "TvUVBVRlCV8"
-			},
-			{
-				"title": "Making a Murderer",
-				"year": "2015–",
-				"description": "Filmed over a 10-year period, Making a Murderer is an unprecedented real-life thriller about Steven Avery, a DNA exoneree who, while in the midst of exposing corruption in local law enforcement, finds himself the prime suspect in a grisly new crime.",
-				"poster": "mam.jpg",
-				"imdbID": "tt5189670",
-				"trailer": "qxgbdYaR_KQ"
-			},
-			{
-				"title": "Sense8",
-				"year": "2015–",
-				"description": "A group of people around the world are suddenly linked mentally, and must find a way to survive being hunted by those who see them as a threat to the world's order.",
-				"poster": "s8.jpg",
-				"imdbID": "tt2431438",
-				"trailer": "riLgCIvE9aU"
-			},
-			{
-				"title": "Fuller House",
-				"year": "2016–",
-				"description": "D.J. Tanner-Fuller is a widow and mother of three. Things become too much to handle, so she asks for help from her sister Stephanie and her best friend Kimmy.",
-				"poster": "fh.jpg",
-				"imdbID": "tt3986586",
-				"trailer": "CXuGLswn2l0"
-			},
-			{
-				"title": "w/ Bob & David",
-				"year": "2016–",
-				"description": "Bob and David emerge from the time machine they entered sixteen years ago and are reunited with the cast of Mr. Show.",
-				"poster": "wbd.jpg",
-				"imdbID": "tt4574708",
-				"trailer": "QyZ9l8anS9I"
-			}
-		]
-	};
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var redux = __webpack_require__(224);
-	var reactRedux = __webpack_require__(235);
+	var redux = __webpack_require__(218);
+	var reactRedux = __webpack_require__(229);
 
 	var SET_SEARCH_TERM = 'setSearchTerm';
 	var initialState = {
@@ -25618,7 +25213,7 @@
 	module.exports = { connector: connector, store: store };
 
 /***/ },
-/* 224 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25626,27 +25221,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(225);
+	var _createStore = __webpack_require__(219);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(230);
+	var _combineReducers = __webpack_require__(224);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(232);
+	var _bindActionCreators = __webpack_require__(226);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(233);
+	var _applyMiddleware = __webpack_require__(227);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(234);
+	var _compose = __webpack_require__(228);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _warning = __webpack_require__(231);
+	var _warning = __webpack_require__(225);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -25672,7 +25267,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 225 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25681,7 +25276,7 @@
 	exports.ActionTypes = undefined;
 	exports["default"] = createStore;
 
-	var _isPlainObject = __webpack_require__(226);
+	var _isPlainObject = __webpack_require__(220);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -25895,14 +25490,14 @@
 	}
 
 /***/ },
-/* 226 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getPrototype = __webpack_require__(227),
-	    isHostObject = __webpack_require__(228),
-	    isObjectLike = __webpack_require__(229);
+	var getPrototype = __webpack_require__(221),
+	    isHostObject = __webpack_require__(222),
+	    isObjectLike = __webpack_require__(223);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -25970,7 +25565,7 @@
 	module.exports = isPlainObject;
 
 /***/ },
-/* 227 */
+/* 221 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -25992,7 +25587,7 @@
 	module.exports = getPrototype;
 
 /***/ },
-/* 228 */
+/* 222 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26019,7 +25614,7 @@
 	module.exports = isHostObject;
 
 /***/ },
-/* 229 */
+/* 223 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26057,7 +25652,7 @@
 	module.exports = isObjectLike;
 
 /***/ },
-/* 230 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26065,13 +25660,13 @@
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 
-	var _createStore = __webpack_require__(225);
+	var _createStore = __webpack_require__(219);
 
-	var _isPlainObject = __webpack_require__(226);
+	var _isPlainObject = __webpack_require__(220);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _warning = __webpack_require__(231);
+	var _warning = __webpack_require__(225);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -26192,7 +25787,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 231 */
+/* 225 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26221,7 +25816,7 @@
 	}
 
 /***/ },
-/* 232 */
+/* 226 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26279,7 +25874,7 @@
 	}
 
 /***/ },
-/* 233 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26297,7 +25892,7 @@
 	exports.__esModule = true;
 	exports["default"] = applyMiddleware;
 
-	var _compose = __webpack_require__(234);
+	var _compose = __webpack_require__(228);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -26351,7 +25946,7 @@
 	}
 
 /***/ },
-/* 234 */
+/* 228 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26385,7 +25980,7 @@
 	}
 
 /***/ },
-/* 235 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26393,11 +25988,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(236);
+	var _Provider = __webpack_require__(230);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(238);
+	var _connect = __webpack_require__(232);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -26409,7 +26004,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 236 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26421,7 +26016,7 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(237);
+	var _storeShape = __webpack_require__(231);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -26509,7 +26104,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 237 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26525,7 +26120,7 @@
 	});
 
 /***/ },
-/* 238 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26547,23 +26142,23 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(237);
+	var _storeShape = __webpack_require__(231);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(239);
+	var _shallowEqual = __webpack_require__(233);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(240);
+	var _wrapActionCreators = __webpack_require__(234);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _isPlainObject = __webpack_require__(241);
+	var _isPlainObject = __webpack_require__(235);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(245);
+	var _hoistNonReactStatics = __webpack_require__(239);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
@@ -26877,7 +26472,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 239 */
+/* 233 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26908,7 +26503,7 @@
 	}
 
 /***/ },
-/* 240 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26916,7 +26511,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 
-	var _redux = __webpack_require__(224);
+	var _redux = __webpack_require__(218);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -26925,14 +26520,14 @@
 	}
 
 /***/ },
-/* 241 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var getPrototype = __webpack_require__(242),
-	    isHostObject = __webpack_require__(243),
-	    isObjectLike = __webpack_require__(244);
+	var getPrototype = __webpack_require__(236),
+	    isHostObject = __webpack_require__(237),
+	    isObjectLike = __webpack_require__(238);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -27000,7 +26595,7 @@
 	module.exports = isPlainObject;
 
 /***/ },
-/* 242 */
+/* 236 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -27022,7 +26617,7 @@
 	module.exports = getPrototype;
 
 /***/ },
-/* 243 */
+/* 237 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27049,7 +26644,7 @@
 	module.exports = isHostObject;
 
 /***/ },
-/* 244 */
+/* 238 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27087,7 +26682,7 @@
 	module.exports = isObjectLike;
 
 /***/ },
-/* 245 */
+/* 239 */
 /***/ function(module, exports) {
 
 	/**
@@ -27127,6 +26722,481 @@
 	    }
 
 	    return targetComponent;
+	};
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(1);
+	var ShowCard = __webpack_require__(241);
+	// const data = require('../public/data')
+	var _React$PropTypes = React.PropTypes;
+	var object = _React$PropTypes.object;
+	var string = _React$PropTypes.string;
+
+	var Header = __webpack_require__(242);
+
+	var _require = __webpack_require__(217);
+
+	var connector = _require.connector;
+
+
+	var Search = React.createClass({
+		displayName: 'Search',
+
+		// getInitialState() {
+		// 	return {
+		// 		searchTerm: ''
+		// 	}
+		// },
+		propTypes: {
+			route: object,
+			searchTerm: string
+		},
+		// handleSearchTermChange (searchTerm) {
+		//   this.setState({ searchTerm: searchTerm })
+		//   // same to this.setState({ searchTerm})
+		// },
+		render: function render() {
+			var _this = this;
+
+			return React.createElement(
+				'div',
+				{ className: 'container' },
+				React.createElement(Header
+				// handleSearchTermChange = {this.handleSearchTermChange}
+				// 	searchTerm={this.state.searchTerm}
+				, { showSearch: true }),
+				React.createElement(
+					'div',
+					{ className: 'shows' },
+					this.props.route.shows
+					//searching in both title and description
+					.filter(function (show) {
+						return (show.title + ' ' + show.description).toUpperCase()
+						//if true will keep in the array, if not, then drop from the array
+						.indexOf(_this.props.searchTerm.toUpperCase()) >= 0;
+					}).map(function (show) {
+						return React.createElement(ShowCard, _extends({}, show, { key: show.imdbID }));
+					})
+				)
+			);
+		}
+	});
+
+	module.exports = connector(Search);
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var _require = __webpack_require__(160);
+
+	var Link = _require.Link;
+
+	var ShowCard = function ShowCard(props) {
+		return React.createElement(
+			Link,
+			{ to: '/details/' + props.imdbID },
+			React.createElement(
+				'div',
+				{ className: 'show-card' },
+				React.createElement('img', { src: 'public/img/posters/' + props.poster, className: 'show-card-img' }),
+				React.createElement(
+					'div',
+					{ className: 'show-card-text' },
+					React.createElement(
+						'h3',
+						{ className: 'show-card-title' },
+						props.title
+					),
+					React.createElement(
+						'h4',
+						{ className: 'show-card-year' },
+						'(',
+						props.year,
+						')'
+					),
+					React.createElement(
+						'p',
+						{ className: 'show-card-description' },
+						props.description
+					)
+				)
+			)
+		);
+	};
+
+	var string = React.PropTypes.string;
+	// = const string = React.PropTypes.string
+
+	ShowCard.propTypes = {
+		title: string.isRequired,
+		description: string.isRequired,
+		year: string.isRequired,
+		poster: string.isRequired,
+		imdbID: string.isRequired
+	};
+
+	module.exports = ShowCard;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var _require = __webpack_require__(160);
+
+	var Link = _require.Link;
+	var _React$PropTypes = React.PropTypes;
+	var func = _React$PropTypes.func;
+	var bool = _React$PropTypes.bool;
+	var string = _React$PropTypes.string;
+
+	var _require2 = __webpack_require__(217);
+
+	var connector = _require2.connector;
+
+
+	var Header = React.createClass({
+	  displayName: 'Header',
+
+	  propTypes: {
+	    setSearchTerm: func,
+	    showSearch: bool,
+	    searchTerm: string
+	  },
+	  handleSearchTermEvent: function handleSearchTermEvent(event) {
+	    this.props.setSearchTerm(event.target.value);
+	  },
+	  render: function render() {
+	    var utilSpace = void 0;
+	    if (this.props.showSearch) {
+	      utilSpace = React.createElement('input', { type: 'text', className: 'search-input', placeholder: 'search', value: this.props.searchTerm, onChange: this.handleSearchTermEvent });
+	    } else {
+	      utilSpace = React.createElement(
+	        'h2',
+	        { className: 'header-back' },
+	        React.createElement(
+	          Link,
+	          { to: '/search' },
+	          'Back'
+	        )
+	      );
+	    }
+	    return React.createElement(
+	      'header',
+	      { className: 'header' },
+	      React.createElement(
+	        'h1',
+	        { className: 'brand' },
+	        React.createElement(
+	          Link,
+	          { to: '/', className: 'brand-link' },
+	          'svideo'
+	        )
+	      ),
+	      utilSpace
+	    );
+	  }
+	});
+
+	module.exports = connector(Header);
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Layout = function Layout(props) {
+		return React.createElement(
+			'div',
+			{ className: 'app-container' },
+			props.children
+		);
+	};
+
+	var element = React.PropTypes.element;
+
+
+	Layout.propTypes = {
+		children: element.isRequired
+	};
+	module.exports = Layout;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(1);
+	var Header = __webpack_require__(242);
+
+	var Details = function (_React$Component) {
+		_inherits(Details, _React$Component);
+
+		function Details() {
+			_classCallCheck(this, Details);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Details).apply(this, arguments));
+		}
+
+		_createClass(Details, [{
+			key: 'render',
+			value: function render() {
+				var params = this.props.params || {};
+				var title = params.title;
+				var description = params.description;
+				var year = params.year;
+				var poster = params.poster;
+				var trailer = params.trailer;
+
+				return React.createElement(
+					'div',
+					{ className: 'container' },
+					React.createElement(Header, null),
+					React.createElement(
+						'div',
+						{ className: 'video-info' },
+						React.createElement(
+							'h1',
+							{ className: 'video-title' },
+							title
+						),
+						React.createElement(
+							'h2',
+							{ className: 'video-year' },
+							' (',
+							year,
+							')'
+						),
+						React.createElement('img', { className: 'video-poster', src: 'public/img/posters/' + poster }),
+						React.createElement(
+							'p',
+							{ className: 'video-description' },
+							description
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'video-container' },
+						React.createElement('iframe', { src: 'https://www.youtube-nocookie.com/embed/' + trailer + '?rel=0&amp;controls=0&amp;showinfo=0', frameBorder: '0', allowFullScreen: true })
+					)
+				);
+			}
+		}]);
+
+		return Details;
+	}(React.Component);
+
+	var object = React.PropTypes.object;
+
+
+	Details.propTypes = {
+		params: object.isRequired
+
+	};
+
+	module.exports = Details;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"shows": [
+			{
+				"title": "House of Cards",
+				"year": "2013–",
+				"description": "A Congressman works with his equally conniving wife to exact revenge on the people who betrayed him.",
+				"poster": "hoc.jpg",
+				"imdbID": "tt1856010",
+				"trailer": "NTzycsqxYJ0"
+			},
+			{
+				"title": "Daredevil",
+				"year": "2015–",
+				"description": "A blind lawyer with his other senses superhumanly enhanced fights crime as a costumed superhero.",
+				"poster": "dd.jpg",
+				"imdbID": "tt3322312",
+				"trailer": "m5_A0Wx0jU4"
+			},
+			{
+				"title": "Orange Is the New Black",
+				"year": "2013–",
+				"description": "The story of Piper Chapman, a woman in her thirties who is sentenced to fifteen months in prison after being convicted of a decade-old crime of transporting money for her drug-dealing girlfriend.",
+				"poster": "oitnb.jpg",
+				"imdbID": "tt2372162",
+				"trailer": "th8WT_pxGqg"
+			},
+			{
+				"title": "Arrested Development",
+				"year": "2003–",
+				"description": "Level-headed son Michael Bluth takes over family affairs after his father is imprisoned. But the rest of his spoiled, dysfunctional family are making his job unbearable.",
+				"poster": "ad.jpg",
+				"imdbID": "tt0367279",
+				"trailer": "vzVhPCMAxWQ"
+			},
+			{
+				"title": "Unbreakable Kimmy Schmidt",
+				"year": "2015–",
+				"description": "A woman is rescued from a doomsday cult and starts life over again in New York City.",
+				"poster": "uks.jpg",
+				"imdbID": "tt3339966",
+				"trailer": "ZBJHP2B4bjc"
+			},
+			{
+				"title": "Marco Polo",
+				"year": "2014–",
+				"description": "In a world replete with greed, betrayal, sexual intrigue and rivalry, \"Marco Polo\" is based on the famed explorer's adventures in Kublai Khan's court in 13th century China.",
+				"poster": "mp.jpg",
+				"imdbID": "tt2189461",
+				"trailer": "CeUhXYmGKU4"
+			},
+			{
+				"title": "Bloodline",
+				"year": "2015–",
+				"description": "A family of adult siblings find that their secrets and scars are revealed when their black sheep of a brother returns home.",
+				"poster": "bl.jpg",
+				"imdbID": "tt3520702",
+				"trailer": "tRnS8FkcXNk"
+			},
+			{
+				"title": "BoJack Horseman",
+				"year": "2014–",
+				"description": "Meet the most beloved sitcom horse of the '90s - 20 years later. BoJack Horseman was the star of the hit TV show \"Horsin' Around,\" but today he's washed up, living in Hollywood, complaining about everything, and wearing colorful sweaters.",
+				"poster": "bh.jpg",
+				"imdbID": "tt3398228",
+				"trailer": "5sGsBoX6vUo"
+			},
+			{
+				"title": "Hemlock Grove",
+				"year": "2013–",
+				"description": "A teenage girl is brutally murdered, sparking a hunt for her killer. But in a town where everyone hides a secret, will they find the monster among them?",
+				"poster": "hg.jpg",
+				"imdbID": "tt2309295",
+				"trailer": "rlZUsPcChgI"
+			},
+			{
+				"title": "The Killing",
+				"year": "2011–",
+				"description": "A police investigation, the saga of a grieving family, and a Seattle mayoral campaign all interlock after the body of 17-year-old Rosie Larsen is found in the trunk of a submerged car.",
+				"poster": "tk.jpg",
+				"imdbID": "tt1637727",
+				"trailer": "OkbfvPeH3G0"
+			},
+			{
+				"title": "Love",
+				"year": "2016–",
+				"description": "A program that follows a couple who must navigate the exhilarations and humiliations of intimacy, commitment and other things they were hoping to avoid.",
+				"poster": "l.jpg",
+				"imdbID": "tt4061080",
+				"trailer": "Ym3LoSj9Xj8"
+			},
+			{
+				"title": "Master of None",
+				"year": "2015–",
+				"description": "The personal and professional life of Dev, a 30-year-old actor in New York.",
+				"poster": "mon.jpg",
+				"imdbID": "tt4635276",
+				"trailer": "6bFvb3WKISk"
+			},
+			{
+				"title": "Flaked",
+				"year": "2016–",
+				"description": "Will Arnett will star as a self-help guru who needs a decent amount of help himself.",
+				"poster": "f.jpg",
+				"imdbID": "tt4973548",
+				"trailer": "iKOpvm7BcOo"
+			},
+			{
+				"title": "Jessica Jones",
+				"year": "2015–",
+				"description": "A former superhero decides to reboot her life by becoming a private investigator.",
+				"poster": "jj.jpg",
+				"imdbID": "tt2357547",
+				"trailer": "nWHUjuJ8zxE"
+			},
+			{
+				"title": "Narcos",
+				"year": "2015–",
+				"description": "A chronicled look at the criminal exploits of Colombian drug lord Pablo Escobar.",
+				"poster": "n.jpg",
+				"imdbID": "tt2707408",
+				"trailer": "U7elNhHwgBU"
+			},
+			{
+				"title": "Wet Hot American Summer: First Day of Camp",
+				"year": "2015–",
+				"description": "Follow the counselors and campers on their first day at Camp Firewood in the summer of 1981.",
+				"poster": "whas.jpg",
+				"imdbID": "tt4341500",
+				"trailer": "PLlMTn_Jzok"
+			},
+			{
+				"title": "Club de Cuervos",
+				"year": "2015–",
+				"description": "When the patriarch of a prominent family dies, his heirs battle to determine who will gain control of his beloved soccer team: The Cuervos of Nuevo Toledo.",
+				"poster": "cdc.jpg",
+				"imdbID": "tt4680240",
+				"trailer": "TvUVBVRlCV8"
+			},
+			{
+				"title": "Making a Murderer",
+				"year": "2015–",
+				"description": "Filmed over a 10-year period, Making a Murderer is an unprecedented real-life thriller about Steven Avery, a DNA exoneree who, while in the midst of exposing corruption in local law enforcement, finds himself the prime suspect in a grisly new crime.",
+				"poster": "mam.jpg",
+				"imdbID": "tt5189670",
+				"trailer": "qxgbdYaR_KQ"
+			},
+			{
+				"title": "Sense8",
+				"year": "2015–",
+				"description": "A group of people around the world are suddenly linked mentally, and must find a way to survive being hunted by those who see them as a threat to the world's order.",
+				"poster": "s8.jpg",
+				"imdbID": "tt2431438",
+				"trailer": "riLgCIvE9aU"
+			},
+			{
+				"title": "Fuller House",
+				"year": "2016–",
+				"description": "D.J. Tanner-Fuller is a widow and mother of three. Things become too much to handle, so she asks for help from her sister Stephanie and her best friend Kimmy.",
+				"poster": "fh.jpg",
+				"imdbID": "tt3986586",
+				"trailer": "CXuGLswn2l0"
+			},
+			{
+				"title": "w/ Bob & David",
+				"year": "2016–",
+				"description": "Bob and David emerge from the time machine they entered sixteen years ago and are reunited with the cast of Mr. Show.",
+				"poster": "wbd.jpg",
+				"imdbID": "tt4574708",
+				"trailer": "QyZ9l8anS9I"
+			}
+		]
 	};
 
 /***/ }
