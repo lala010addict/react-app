@@ -61,7 +61,7 @@
 	var IndexRoute = _require.IndexRoute;
 	var hashHistory = _require.hashHistory;
 
-	var _require2 = __webpack_require__(221);
+	var _require2 = __webpack_require__(222);
 
 	var shows = _require2.shows;
 	//const {Router, Route, hashHistory} = ReactRouter
@@ -25104,6 +25104,7 @@
 	// const data = require('../public/data')
 	var object = React.PropTypes.object;
 
+	var Header = __webpack_require__(221);
 
 	var Search = React.createClass({
 		displayName: 'Search',
@@ -25116,8 +25117,9 @@
 		propTypes: {
 			route: object
 		},
-		handleSearchTermEvent: function handleSearchTermEvent(event) {
-			this.setState({ searchTerm: event.target.value });
+		handleSearchTermChange: function handleSearchTermChange(searchTerm) {
+			this.setState({ searchTerm: searchTerm });
+			// same to this.setState({ searchTerm})
 		},
 		render: function render() {
 			var _this = this;
@@ -25125,16 +25127,9 @@
 			return React.createElement(
 				'div',
 				{ className: 'container' },
-				React.createElement(
-					'header',
-					{ className: 'header' },
-					React.createElement(
-						'h1',
-						{ className: 'brand' },
-						'svideo'
-					),
-					React.createElement('input', { value: this.state.searchTerm, className: 'search-input', type: 'text', placeholder: 'Search', onChange: this.handleSearchTermEvent })
-				),
+				React.createElement(Header, { handleSearchTermChange: this.handleSearchTermChange,
+					searchTerm: this.state.searchTerm,
+					showSearch: true }),
 				React.createElement(
 					'div',
 					{ className: 'shows' },
@@ -25240,7 +25235,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(1);
-	var Header = __webpack_require__(222);
+	var Header = __webpack_require__(221);
 
 	var Details = function (_React$Component) {
 		_inherits(Details, _React$Component);
@@ -25311,6 +25306,68 @@
 
 /***/ },
 /* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var _require = __webpack_require__(160);
+
+	var Link = _require.Link;
+	var _React$PropTypes = React.PropTypes;
+	var func = _React$PropTypes.func;
+	var bool = _React$PropTypes.bool;
+	var string = _React$PropTypes.string;
+
+
+	var Header = React.createClass({
+	  displayName: 'Header',
+
+	  propTypes: {
+	    handleSearchTermChange: func,
+	    showSearch: bool,
+	    searchTerm: string
+	  },
+	  handleSearchTermEvent: function handleSearchTermEvent(event) {
+	    this.props.handleSearchTermChange(event.target.value);
+	  },
+	  render: function render() {
+	    var utilSpace = void 0;
+	    if (this.props.showSearch) {
+	      utilSpace = React.createElement('input', { type: 'text', className: 'search-input', placeholder: 'search', value: this.props.searchTerm, onChange: this.handleSearchTermEvent });
+	    } else {
+	      utilSpace = React.createElement(
+	        'h2',
+	        { className: 'header-back' },
+	        React.createElement(
+	          Link,
+	          { to: '/search' },
+	          'Back'
+	        )
+	      );
+	    }
+	    return React.createElement(
+	      'header',
+	      { className: 'header' },
+	      React.createElement(
+	        'h1',
+	        { className: 'brand' },
+	        React.createElement(
+	          Link,
+	          { to: '/', className: 'brand-link' },
+	          'svideo'
+	        )
+	      ),
+	      utilSpace
+	    );
+	  }
+	});
+
+	module.exports = Header;
+
+/***/ },
+/* 222 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -25485,55 +25542,6 @@
 			}
 		]
 	};
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var _require = __webpack_require__(160);
-
-	var Link = _require.Link;
-
-
-	var Header = React.createClass({
-		displayName: 'Header',
-		render: function render() {
-			var utilSpace = void 0;
-			if (this.props.showSearch) {
-				utilSpace = React.createElement('input', { type: 'text', className: 'search-input', placeholder: 'search', value: this.props.searchTerm, onChange: this.props.handleSearchTerm });
-			} else {
-				utilSpace = React.createElement(
-					'h2',
-					{ className: 'header-back' },
-					React.createElement(
-						Link,
-						{ to: '/search' },
-						'Back'
-					)
-				);
-			}
-			return React.createElement(
-				'header',
-				{ className: 'header' },
-				React.createElement(
-					'h1',
-					{ className: 'brand' },
-					React.createElement(
-						Link,
-						{ to: '/', className: 'brand-link' },
-						'svideo'
-					)
-				),
-				utilSpace
-			);
-		}
-	});
-
-	module.exports = Header;
 
 /***/ }
 /******/ ]);
