@@ -61,25 +61,49 @@
 	var IndexRoute = _require.IndexRoute;
 	var hashHistory = _require.hashHistory;
 
+	var _require2 = __webpack_require__(219);
+
+	var shows = _require2.shows;
 	//const {Router, Route, hashHistory} = ReactRouter
 
 	// const Router = ReactRouter.Router
 	// const Route = ReactRouter.Route
 	// const hashHistory = ReactRouter.hashHistory
 
-	var App = function App() {
-	  return React.createElement(
-	    Router,
-	    { history: hashHistory },
-	    React.createElement(
-	      Route,
-	      { path: '/', component: Layout },
-	      React.createElement(IndexRoute, { component: Landing }),
-	      React.createElement(Route, { path: '/search', component: Search }),
-	      React.createElement(Route, { path: '/details/:id', component: Details })
-	    )
-	  );
-	};
+	// var x = {y:1, z:2}
+	// var w = {a:2, b:3, y:5}
+	// Object.assign(x,w)
+	// x = {y:5, z:2, a:2, b:3}
+
+	var App = React.createClass({
+	  displayName: 'App',
+	  assignShow: function assignShow(nextState, replace) {
+	    //check imdbID is equal to route/:id
+	    var show = shows.filter(function (show) {
+	      return show.imdbID === nextState.id;
+	    });
+
+	    if (showArray.length < 1) {
+	      return replace('/');
+	    }
+
+	    Object.assign(nextState.params, showArray[0]);
+	    return nextState;
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      Router,
+	      { history: hashHistory },
+	      React.createElement(
+	        Route,
+	        { path: '/', component: Layout },
+	        React.createElement(IndexRoute, { component: Landing }),
+	        React.createElement(Route, { path: '/search', component: Search, shows: shows }),
+	        React.createElement(Route, { path: '/details/:id', component: Details, onEnter: this.assignShow })
+	      )
+	    );
+	  }
+	});
 
 	ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 	//http-server -p 8080 ./
@@ -25077,7 +25101,9 @@
 
 	var React = __webpack_require__(1);
 	var ShowCard = __webpack_require__(218);
-	var data = __webpack_require__(219);
+	// const data = require('../public/data')
+	var object = React.PropTypes.object;
+
 
 	var Search = React.createClass({
 		displayName: 'Search',
@@ -25085,6 +25111,10 @@
 			return {
 				searchTerm: ''
 			};
+		},
+
+		propTypes: {
+			route: object
 		},
 		handleSearchTermEvent: function handleSearchTermEvent(event) {
 			this.setState({ searchTerm: event.target.value });
@@ -25108,7 +25138,7 @@
 				React.createElement(
 					'div',
 					{ className: 'shows' },
-					data.shows
+					this.props.route.shows
 					//searching in both title and description
 					.filter(function (show) {
 						return (show.title + ' ' + show.description).toUpperCase()

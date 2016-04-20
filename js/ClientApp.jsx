@@ -6,26 +6,68 @@ const Layout = require('./Layout')
 const Details = require('./Details')
 //distructuring
 const {Router, Route, IndexRoute, hashHistory} = require('react-router')
-
+const{ shows } = require('../public/data')
 //const {Router, Route, hashHistory} = ReactRouter
 
 // const Router = ReactRouter.Router
 // const Route = ReactRouter.Route
 // const hashHistory = ReactRouter.hashHistory
 
-const App = function (){
+
+
+// var x = {y:1, z:2}
+// var w = {a:2, b:3, y:5}
+// Object.assign(x,w)
+// x = {y:5, z:2, a:2, b:3}
+
+const App = React.createClass ({
+	assignShow (nextState, replace){
+		//check imdbID is equal to route/:id
+		const show = shows.filter((show) => show.imdbID === nextState.id )
+
+		if (showArray.length< 1){
+			return replace('/')
+		}
+
+		Object.assign(nextState.params, showArray[0])
+		return nextState
+	},
+   render(){
    return (
     <Router history = {hashHistory} >
     	<Route path='/' component = {Layout}>
       	  <IndexRoute component={Landing} />
           
-         	<Route path = '/search' component={Search} />
-         	<Route path ='/details/:id' component ={Details} />
+         	<Route path = '/search' component={Search} shows={shows} />
+         	<Route path ='/details/:id' component ={Details} onEnter={this.assignShow} />
          </Route>
     </Router>
 
   )
 }
+})
 
 ReactDOM.render(<App />, document.getElementById('app'))
     //http-server -p 8080 ./
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,6 +5,7 @@ class Details extends React.Component{
 		return (
 			<div className='container'>
 				<h1>lollol</h1>
+				
 			</div>
 
 			)
