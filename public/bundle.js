@@ -79,7 +79,7 @@
 	  displayName: 'App',
 	  assignShow: function assignShow(nextState, replace) {
 	    //check imdbID is equal to route/:id
-	    var show = shows.filter(function (show) {
+	    var showArray = shows.filter(function (show) {
 	      return show.imdbID === nextState.params.id;
 	    });
 
@@ -25253,13 +25253,51 @@
 		_createClass(Details, [{
 			key: 'render',
 			value: function render() {
+				var params = this.props.params || {};
+				var title = params.title;
+				var description = params.description;
+				var year = params.year;
+				var poster = params.poster;
+				var trailer = params.trailer;
+
 				return React.createElement(
 					'div',
 					{ className: 'container' },
 					React.createElement(
-						'h1',
-						null,
-						'lollol'
+						'header',
+						{ className: 'header' },
+						React.createElement(
+							'h1',
+							{ className: 'brand' },
+							'svideo'
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'video-info' },
+						React.createElement(
+							'h1',
+							{ className: 'video-title' },
+							title
+						),
+						React.createElement(
+							'h2',
+							{ className: 'video-year' },
+							' (',
+							year,
+							')'
+						),
+						React.createElement('img', { className: 'video-poster', src: 'public/img/posters/' + poster }),
+						React.createElement(
+							'p',
+							{ className: 'video-description' },
+							description
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'video-container' },
+						React.createElement('iframe', { src: 'https://www.youtube-nocookie.com/embed/' + trailer + '?rel=0&amp;controls=0&amp;showinfo=0', frameBorder: '0', allowFullScreen: true })
 					)
 				);
 			}
@@ -25267,6 +25305,14 @@
 
 		return Details;
 	}(React.Component);
+
+	var object = React.PropTypes.object;
+
+
+	Details.propTypes = {
+		params: object.isRequired
+
+	};
 
 	module.exports = Details;
 

@@ -23,7 +23,7 @@ const{ shows } = require('../public/data')
 const App = React.createClass ({
 	assignShow (nextState, replace){
 		//check imdbID is equal to route/:id
-		const show = shows.filter((show) => show.imdbID === nextState.params.id )
+		const showArray = shows.filter((show) => show.imdbID === nextState.params.id )
 
 		if (showArray.length< 1){
 			return replace('/')
