@@ -7,6 +7,8 @@ const Details = require('./Details')
 //distructuring
 const {Router, Route, IndexRoute, hashHistory} = require('react-router')
 const{ shows } = require('../public/data')
+const {store} = require('./Store')
+const{Provider} = require('react-redux')
 //const {Router, Route, hashHistory} = ReactRouter
 
 // const Router = ReactRouter.Router
@@ -34,20 +36,21 @@ const App = React.createClass ({
 	},
    render(){
    return (
-    <Router history = {hashHistory} >
-    	<Route path='/' component = {Layout}>
-      	  <IndexRoute component={Landing} />
-          
-         	<Route path = '/search' component={Search} shows={shows} />
-         	<Route path ='/details/:id' component ={Details} onEnter={this.assignShow} />
-         </Route>
-    </Router>
-
+    <Provider store = {store}>
+      <Router history = {hashHistory} >
+      	<Route path='/' component = {Layout}>
+        	  <IndexRoute component={Landing} />
+            
+           	<Route path = '/search' component={Search} shows={shows} />
+           	<Route path ='/details/:id' component ={Details} onEnter={this.assignShow} />
+           </Route>
+      </Router>
+  </Provider>
   )
 }
 })
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render( <App />, document.getElementById('app'))
     //http-server -p 8080 ./
 
 
