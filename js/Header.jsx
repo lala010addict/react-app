@@ -9,9 +9,11 @@ const Header = React.createClass({
 	    showSearch: bool,
 	    searchTerm: string
 	},
+
   handleSearchTermEvent (event) {
     this.props.setSearchTerm(event.target.value)
   },
+  
   render () {
     let utilSpace
     if (this.props.showSearch) {
